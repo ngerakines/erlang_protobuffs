@@ -1,0 +1,2 @@
+{packages,[]}.
+{modules,[protobuffs,protobuffs_compile]}.
