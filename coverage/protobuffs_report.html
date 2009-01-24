@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+          <head>
+            <title>protobuffs - C0 code coverage information</title>
+            <style type='text/css'>body { background-color: rgb(240, 240, 245); }</style>
+            <style type='text/css'>span.marked0 {
+     background-color: rgb(185, 210, 200);
+     display: block;
+    }
+    span.marked1 {
+     background-color: rgb(190, 215, 205);
+     display: block;
+    }
+    span.inferred0 {
+     background-color: rgb(175, 200, 200);
+     display: block;
+    }
+    span.inferred1 {
+     background-color: rgb(180, 205, 205);
+     display: block;
+    }
+    span.uncovered0 {
+     background-color: rgb(225, 110, 110);
+     display: block;
+    }
+    span.uncovered1 {
+     background-color: rgb(235, 120, 120);
+     display: block;
+    }
+    span.overview {
+     border-bottom: 8px solid black;
+    }
+    div.overview {
+     border-bottom: 8px solid black;
+    }
+    body {
+     font-family: verdana, arial, helvetica;
+    }
+    div.footer {
+     font-size: 68%;
+     margin-top: 1.5em;
+    }
+    h1, h2, h3, h4, h5, h6 {
+     margin-bottom: 0.5em;
+    }
+    h5 {
+     margin-top: 0.5em;
+    }
+    .hidden {
+     display: none;
+    }
+    div.separator {
+     height: 10px;
+    }
+    table.percent_graph {
+     height: 12px;
+     border: #808080 1px solid;
+     empty-cells: show;
+    }
+    table.percent_graph td.covered {
+     height: 10px;
+     background: #00f000;
+    }
+    table.percent_graph td.uncovered {
+     height: 10px;
+     background: #e00000;
+    }
+    table.percent_graph td.NA {
+     height: 10px;
+     background: #eaeaea;
+    }
+    table.report {
+     border-collapse: collapse;
+     width: 100%;
+    }
+    table.report td.heading {
+     background: #dcecff;
+     border: #d0d0d0 1px solid;
+     font-weight: bold;
+     text-align: center;
+    }
+    table.report td.heading:hover {
+     background: #c0ffc0;
+    }
+    table.report td.text {
+     border: #d0d0d0 1px solid;
+    }
+    table.report td.value {
+     text-align: right;
+     border: #d0d0d0 1px solid;
+    }
+    table.report tr.light {
+     background-color: rgb(240, 240, 245);
+    }
+    table.report tr.dark {
+     background-color: rgb(230, 230, 235);
+    }
+    </style>
+          </head>
+          <body>
+            <h3>C0 code coverage information</h3>
+            <p>Generated on 2009-01-23 23:10:54 with <a href='http://github.com/ngerakines/etap'>etap 0.3.3</a>.
+            </p>            
+        <table class='report'>
+          <thead>
+            <tr>
+              <td class='heading'>Name</td>
+              <td class='heading'>Total lines</td>
+              <td class='heading'>Lines of code</td>
+              <td class='heading'>Total coverage</td>
+              <td class='heading'>Code coverage</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='light'>
+
+              <td>
+                <a href='protobuffs_report.html'>protobuffs</a>
+              </td>
+              <td class='value'>
+                <tt>??</tt>
+              </td>
+              <td class='value'>
+                <tt>??</tt>
+              </td>
+              <td class='value'>
+                <tt>??</tt>
+              </td>
+              <td>
+                <table cellspacing='0' cellpadding='0' align='right'>
+                  <tr>
+                    <td><tt>73%</tt>&nbsp;</td><td>
+                      <table cellspacing='0' class='percent_graph' cellpadding='0' width='100'>
+                      <tr><td class='covered' width='46' /><td class='uncovered' width='17' /></tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table><pre><span class="inferred0"><a name="line1"></a>....1 %% @doc A protcol buffers encoding and decoding module.
+</span><span class="inferred0"><a name="line2"></a>....2 -module(protobuffs).
+</span><span class="inferred0"><a name="line3"></a>....3 -export([encode/3, decode/2, decode_many/1]).
+</span><span class="inferred0"><a name="line4"></a>....4 
+</span><span class="inferred0"><a name="line5"></a>....5 -define(TYPE_VARINT, 0).
+</span><span class="inferred0"><a name="line6"></a>....6 -define(TYPE_64BIT, 1).
+</span><span class="inferred0"><a name="line7"></a>....7 -define(TYPE_STRING, 2).
+</span><span class="inferred0"><a name="line8"></a>....8 -define(TYPE_START_GROUP, 3).
+</span><span class="inferred0"><a name="line9"></a>....9 -define(TYPE_END_GROUP, 4).
+</span><span class="inferred0"><a name="line10"></a>...10 -define(TYPE_32BIT, 5).
+</span><span class="inferred0"><a name="line11"></a>...11 
+</span><span class="inferred0"><a name="line12"></a>...12 %% @spec encode(FieldID, Value, Type) -> Result
+</span><span class="inferred0"><a name="line13"></a>...13 %%       FieldID = integer()
+</span><span class="inferred0"><a name="line14"></a>...14 %%       Value = any()
+</span><span class="inferred0"><a name="line15"></a>...15 %%       Type = bool | enum | int32 | uint32 | int64 | unit64 | sint32 | sint64 | fixed32 | sfixed32 | fixed64 | sfixed64 | string | bytes | float | double 
+</span><span class="inferred0"><a name="line16"></a>...16 %%       Result = list()
+</span><span class="inferred0"><a name="line17"></a>...17 %% @doc Encode an Erlang data structure into a Protocol Buffers value.
+</span><span class="inferred0"><a name="line18"></a>...18 encode(FieldID, false, bool) ->
+</span><span class="marked0"><a name="line19"></a>...19     encode(FieldID, 0, int32);
+</span><span class="inferred0"><a name="line20"></a>...20 encode(FieldID, true, bool) ->
+</span><span class="marked0"><a name="line21"></a>...21     encode(FieldID, 1, int32);
+</span><span class="inferred0"><a name="line22"></a>...22 encode(FieldID, Integer, enum) ->
+</span><span class="marked0"><a name="line23"></a>...23     encode(FieldID, Integer, uint32);
+</span><span class="inferred0"><a name="line24"></a>...24 encode(FieldID, Integer, IntType) when IntType =:= int32,  Integer >= -16#80000000, Integer =< 16#7fffffff ->
+</span><span class="marked0"><a name="line25"></a>...25     encode_varint_field(FieldID, Integer);
+</span><span class="inferred0"><a name="line26"></a>...26 encode(FieldID, Integer, IntType) when IntType =:= uint32, Integer band 16#ffffffff =:= Integer ->
+</span><span class="marked0"><a name="line27"></a>...27     encode_varint_field(FieldID, Integer);
+</span><span class="inferred0"><a name="line28"></a>...28 encode(FieldID, Integer, IntType) when IntType =:= int64,  Integer >= -16#8000000000000000, Integer =< 16#7fffffffffffffff ->
+</span><span class="marked0"><a name="line29"></a>...29     encode_varint_field(FieldID, Integer);
+</span><span class="inferred0"><a name="line30"></a>...30 encode(FieldID, Integer, IntType) when IntType =:= uint64, Integer band 16#ffffffffffffffff =:= Integer ->
+</span><span class="uncovered0"><a name="line31"></a>...31     encode_varint_field(FieldID, Integer);
+</span><span class="inferred0"><a name="line32"></a>...32 encode(FieldID, Integer, IntType) when IntType =:= bool, Integer band 1 =:= 1 ->
+</span><span class="uncovered0"><a name="line33"></a>...33     encode_varint_field(FieldID, Integer);
+</span><span class="inferred0"><a name="line34"></a>...34 encode(FieldID, Integer, IntType) when IntType =:= sint32, Integer >= -16#80000000, Integer < 0 ->
+</span><span class="uncovered0"><a name="line35"></a>...35     encode_varint_field(FieldID, bnot (Integer bsl 1));
+</span><span class="inferred0"><a name="line36"></a>...36 encode(FieldID, Integer, IntType) when IntType =:= sint64, Integer >= -16#8000000000000000, Integer < 0 ->
+</span><span class="marked0"><a name="line37"></a>...37     encode_varint_field(FieldID, bnot (Integer bsl 1));
+</span><span class="inferred0"><a name="line38"></a>...38 encode(FieldID, Integer, IntType) when IntType =:= sint64, Integer >= 0, Integer =< 16#7fffffff ->
+</span><span class="uncovered0"><a name="line39"></a>...39     encode_varint_field(FieldID, Integer bsl 1);
+</span><span class="inferred0"><a name="line40"></a>...40 encode(FieldID, Integer, IntType) when IntType =:= sint64, Integer >= 0, Integer =< 16#7fffffffffffffff ->
+</span><span class="uncovered0"><a name="line41"></a>...41     encode_varint_field(FieldID, Integer bsl 1);
+</span><span class="inferred0"><a name="line42"></a>...42 encode(FieldID, Integer, fixed32) when Integer band 16#ffffffff =:= Integer ->
+</span><span class="marked0"><a name="line43"></a>...43     [encode_field_tag(FieldID, ?TYPE_32BIT), <<Integer:32/little-integer>>];
+</span><span class="inferred0"><a name="line44"></a>...44 encode(FieldID, Integer, sfixed32) when Integer >= -16#80000000, Integer =< 16#7fffffff ->
+</span><span class="marked0"><a name="line45"></a>...45     [encode_field_tag(FieldID, ?TYPE_32BIT), <<Integer:32/little-integer>>];
+</span><span class="inferred0"><a name="line46"></a>...46 encode(FieldID, Integer, fixed64) when Integer band 16#ffffffffffffffff =:= Integer ->
+</span><span class="marked0"><a name="line47"></a>...47     [encode_field_tag(FieldID, ?TYPE_64BIT), <<Integer:64/little-integer>>];
+</span><span class="inferred0"><a name="line48"></a>...48 encode(FieldID, Integer, sfixed64) when Integer >= -16#8000000000000000, Integer =< 16#7fffffffffffffff ->
+</span><span class="marked0"><a name="line49"></a>...49     [encode_field_tag(FieldID, ?TYPE_64BIT), <<Integer:64/little-integer>>];
+</span><span class="inferred0"><a name="line50"></a>...50 encode(FieldID, String, string) when is_list(String) ->
+</span><span class="marked0"><a name="line51"></a>...51     encode(FieldID, list_to_binary(String), string);
+</span><span class="inferred0"><a name="line52"></a>...52 encode(FieldID, String, string) when is_binary(String) ->
+</span><span class="marked0"><a name="line53"></a>...53     encode(FieldID, String, bytes);
+</span><span class="inferred0"><a name="line54"></a>...54 encode(FieldID, String, bytes) when is_list(String) ->
+</span><span class="uncovered0"><a name="line55"></a>...55     encode(FieldID, list_to_binary(String), bytes);
+</span><span class="inferred0"><a name="line56"></a>...56 encode(FieldID, Bytes, bytes) when is_binary(Bytes) ->
+</span><span class="marked0"><a name="line57"></a>...57     [encode_field_tag(FieldID, ?TYPE_STRING), encode_varint(size(Bytes)), Bytes];
+</span><span class="inferred0"><a name="line58"></a>...58 encode(FieldID, Float, float) when is_float(Float) ->
+</span><span class="marked0"><a name="line59"></a>...59     [encode_field_tag(FieldID, ?TYPE_32BIT), <<Float:32/little-float>>];
+</span><span class="inferred0"><a name="line60"></a>...60 encode(FieldID, Float, double) when is_float(Float) ->
+</span><span class="marked0"><a name="line61"></a>...61     [encode_field_tag(FieldID, ?TYPE_64BIT), <<Float:64/little-float>>].
+</span><span class="inferred0"><a name="line62"></a>...62 %% encode(FieldID, Value, _) when is_binary(Value) ->
+</span><span class="inferred0"><a name="line63"></a>...63 %%     encode(FieldID, Value, bytes);
+</span><span class="inferred0"><a name="line64"></a>...64 %% encode(FieldID, Value, _) when is_atom(Value) ->
+</span><span class="inferred0"><a name="line65"></a>...65 %%     encode(FieldID, erlang:atom_to_list(Value), string).
+</span><span class="inferred0"><a name="line66"></a>...66 
+</span><span class="inferred0"><a name="line67"></a>...67 %% @spec decode(Bytes, ExpectedType) -> Result
+</span><span class="inferred0"><a name="line68"></a>...68 %%       Bytes = binary()
+</span><span class="inferred0"><a name="line69"></a>...69 %%       ExpectedType = bool | enum | int32 | uint32 | int64 | unit64 | sint32 | sint64 | fixed32 | sfixed32 | fixed64 | sfixed64 | string | bytes | float | double 
+</span><span class="inferred0"><a name="line70"></a>...70 %%       Result = {{integer(), any()}, binary()}
+</span><span class="inferred0"><a name="line71"></a>...71 decode(Bytes, ExpectedType) ->
+</span><span class="marked0"><a name="line72"></a>...72     {Tag, Rest1} = decode_varint(Bytes),
+</span><span class="marked0"><a name="line73"></a>...73     FieldID = Tag bsr 3,
+</span><span class="marked0"><a name="line74"></a>...74     WireType = Tag band 7,
+</span><span class="marked0"><a name="line75"></a>...75     {Value, Rest2} = decode_value(Rest1, WireType, ExpectedType),
+</span><span class="marked0"><a name="line76"></a>...76     {{FieldID, Value}, Rest2}.
+</span><span class="inferred0"><a name="line77"></a>...77 
+</span><span class="inferred0"><a name="line78"></a>...78 %% @spec decode_many(Bytes) -> Results
+</span><span class="inferred0"><a name="line79"></a>...79 %%       Bytes = binary()
+</span><span class="inferred0"><a name="line80"></a>...80 %%       Results = [Result]
+</span><span class="inferred0"><a name="line81"></a>...81 %%       Result = {integer(), any()}
+</span><span class="inferred0"><a name="line82"></a>...82 decode_many(Bytes) ->
+</span><span class="marked0"><a name="line83"></a>...83     decode_many(Bytes, []).
+</span><span class="inferred0"><a name="line84"></a>...84 
+</span><span class="inferred0"><a name="line85"></a>...85 %% @hidden
+</span><span class="inferred0"><a name="line86"></a>...86 decode_value(Bytes, ?TYPE_VARINT, ExpectedType) ->
+</span><span class="marked0"><a name="line87"></a>...87     {Value, Rest} = decode_varint(Bytes),
+</span><span class="marked0"><a name="line88"></a>...88     {typecast(Value, ExpectedType), Rest};
+</span><span class="inferred0"><a name="line89"></a>...89 decode_value(<<Value:64/little-unsigned-integer, Rest/binary>>, ?TYPE_64BIT, fixed64) ->
+</span><span class="marked0"><a name="line90"></a>...90     {Value, Rest};
+</span><span class="inferred0"><a name="line91"></a>...91 decode_value(<<Value:32/little-unsigned-integer, _:32, Rest/binary>>, ?TYPE_64BIT, fixed32) ->
+</span><span class="uncovered0"><a name="line92"></a>...92     {Value, Rest};
+</span><span class="inferred0"><a name="line93"></a>...93 decode_value(<<Value:64/little-signed-integer, Rest/binary>>, ?TYPE_64BIT, sfixed64) ->
+</span><span class="marked0"><a name="line94"></a>...94     {Value, Rest};
+</span><span class="inferred0"><a name="line95"></a>...95 decode_value(<<Value:32/little-signed-integer, _:32, Rest/binary>>, ?TYPE_64BIT, sfixed32) ->
+</span><span class="uncovered0"><a name="line96"></a>...96     {Value, Rest};
+</span><span class="inferred0"><a name="line97"></a>...97 decode_value(<<Value:64/little-float, Rest/binary>>, ?TYPE_64BIT, Type) when Type =:= double; Type =:= float ->
+</span><span class="marked0"><a name="line98"></a>...98     {Value, Rest};
+</span><span class="inferred0"><a name="line99"></a>...99 decode_value(Bytes, ?TYPE_STRING, ExpectedType) when ExpectedType =:= string; ExpectedType =:= bytes ->
+</span><span class="marked0"><a name="line100"></a>..100     {Length, Rest} = decode_varint(Bytes),
+</span><span class="marked0"><a name="line101"></a>..101     split_binary(Rest, Length);
+</span><span class="inferred0"><a name="line102"></a>..102 decode_value(<<Value:32/little-unsigned-integer, Rest/binary>>, ?TYPE_32BIT, Type) when Type =:= fixed32; Type =:= fixed64 ->
+</span><span class="marked0"><a name="line103"></a>..103     {Value, Rest};
+</span><span class="inferred0"><a name="line104"></a>..104 decode_value(<<Value:32/little-signed-integer, Rest/binary>>, ?TYPE_32BIT, Type) when Type =:= sfixed32; Type =:= sfixed64 ->
+</span><span class="marked0"><a name="line105"></a>..105     {Value, Rest};
+</span><span class="inferred0"><a name="line106"></a>..106 decode_value(<<Value:32/little-float, Rest/binary>>, ?TYPE_32BIT, Type) when Type =:= double; Type =:= float ->
+</span><span class="marked0"><a name="line107"></a>..107     {Value, Rest}.
+</span><span class="inferred0"><a name="line108"></a>..108 
+</span><span class="inferred0"><a name="line109"></a>..109 %% @hidden
+</span><span class="inferred0"><a name="line110"></a>..110 typecast(Value, SignedType) when SignedType =:= int32; SignedType =:= int64 ->
+</span><span class="marked0"><a name="line111"></a>..111     if
+</span><span class="uncovered0"><a name="line112"></a>..112         Value band 16#8000000000000000 =/= 0 -> Value - 16#10000000000000000;
+</span><span class="marked0"><a name="line113"></a>..113         true -> Value
+</span><span class="inferred0"><a name="line114"></a>..114     end;
+</span><span class="inferred0"><a name="line115"></a>..115 typecast(Value, SignedType) when SignedType =:= sint32; SignedType =:= sint64 ->
+</span><span class="marked0"><a name="line116"></a>..116     (Value bsr 1) bxor (-(Value band 1));
+</span><span class="inferred0"><a name="line117"></a>..117 typecast(Value, _) ->
+</span><span class="marked0"><a name="line118"></a>..118     Value.
+</span><span class="inferred0"><a name="line119"></a>..119 
+</span><span class="inferred0"><a name="line120"></a>..120 %% @hidden
+</span><span class="inferred0"><a name="line121"></a>..121 encode_field_tag(FieldID, FieldType) when FieldID band 16#3fffffff =:= FieldID ->
+</span><span class="marked0"><a name="line122"></a>..122     encode_varint((FieldID bsl 3) bor FieldType).
+</span><span class="inferred0"><a name="line123"></a>..123 
+</span><span class="inferred0"><a name="line124"></a>..124 %% @hidden
+</span><span class="inferred0"><a name="line125"></a>..125 encode_varint_field(FieldID, Integer) ->
+</span><span class="marked0"><a name="line126"></a>..126     [encode_field_tag(FieldID, ?TYPE_VARINT), encode_varint(Integer)].
+</span><span class="inferred0"><a name="line127"></a>..127 
+</span><span class="inferred0"><a name="line128"></a>..128 %% @hidden
+</span><span class="inferred0"><a name="line129"></a>..129 encode_varint(I) when I band 16#7f =:= I ->
+</span><span class="marked0"><a name="line130"></a>..130     I;
+</span><span class="inferred0"><a name="line131"></a>..131 encode_varint(I) when I band 16#3fff =:= I ->
+</span><span class="marked0"><a name="line132"></a>..132     <<(16#80 bor (I bsr 7)), (I band 16#7f)>>;
+</span><span class="inferred0"><a name="line133"></a>..133 encode_varint(I) when I band 16#1fffff =:= I ->
+</span><span class="uncovered0"><a name="line134"></a>..134     <<(16#80 bor (I bsr 14)),
+</span><span class="inferred0"><a name="line135"></a>..135       (16#80 bor (I bsr 7) band 16#ff), (I band 16#7f)>>;
+</span><span class="inferred0"><a name="line136"></a>..136 encode_varint(I) when I band 16#fffffff =:= I ->
+</span><span class="uncovered0"><a name="line137"></a>..137     <<(16#80 bor (I bsr 21)), (16#80 bor (I bsr 14) band 16#ff),
+</span><span class="inferred0"><a name="line138"></a>..138       (16#80 bor (I bsr 7) band 16#ff), (I band 16#7f)>>;
+</span><span class="inferred0"><a name="line139"></a>..139 encode_varint(I) when I band 16#7ffffffff =:= I ->
+</span><span class="uncovered0"><a name="line140"></a>..140     <<(16#80 bor (I bsr 28)),
+</span><span class="inferred0"><a name="line141"></a>..141       (16#80 bor (I bsr 21) band 16#ff), (16#80 bor (I bsr 14) band 16#ff),
+</span><span class="inferred0"><a name="line142"></a>..142       (16#80 bor (I bsr 7) band 16#ff), (I band 16#7f)>>;
+</span><span class="inferred0"><a name="line143"></a>..143 encode_varint(I) when I band 16#3ffffffffff =:= I ->
+</span><span class="uncovered0"><a name="line144"></a>..144     <<(16#80 bor (I bsr 35)), (16#80 bor (I bsr 28) band 16#ff),
+</span><span class="inferred0"><a name="line145"></a>..145       (16#80 bor (I bsr 21) band 16#ff), (16#80 bor (I bsr 14) band 16#ff),
+</span><span class="inferred0"><a name="line146"></a>..146       (16#80 bor (I bsr 7) band 16#ff), (I band 16#7f)>>;
+</span><span class="inferred0"><a name="line147"></a>..147 encode_varint(I) when I band 16#1ffffffffffff =:= I ->
+</span><span class="uncovered0"><a name="line148"></a>..148     <<(16#80 bor (I bsr 42)),
+</span><span class="inferred0"><a name="line149"></a>..149       (16#80 bor (I bsr 35) band 16#ff), (16#80 bor (I bsr 28) band 16#ff),
+</span><span class="inferred0"><a name="line150"></a>..150       (16#80 bor (I bsr 21) band 16#ff), (16#80 bor (I bsr 14) band 16#ff),
+</span><span class="inferred0"><a name="line151"></a>..151       (16#80 bor (I bsr 7) band 16#ff), (I band 16#7f)>>;
+</span><span class="inferred0"><a name="line152"></a>..152 encode_varint(I) when I band 16#ffffffffffffff =:= I ->
+</span><span class="uncovered0"><a name="line153"></a>..153     <<(16#80 bor (I bsr 49) band 16#ff), (16#80 bor (I bsr 42) band 16#ff),
+</span><span class="inferred0"><a name="line154"></a>..154       (16#80 bor (I bsr 35) band 16#ff), (16#80 bor (I bsr 28) band 16#ff),
+</span><span class="inferred0"><a name="line155"></a>..155       (16#80 bor (I bsr 21) band 16#ff), (16#80 bor (I bsr 14) band 16#ff),
+</span><span class="inferred0"><a name="line156"></a>..156       (16#80 bor (I bsr 7) band 16#ff), (I band 16#7f)>>;
+</span><span class="inferred0"><a name="line157"></a>..157 encode_varint(I) when I band 16#7fffffffffffffff =:= I ->
+</span><span class="uncovered0"><a name="line158"></a>..158     <<(16#80 bor (I bsr 56)),
+</span><span class="inferred0"><a name="line159"></a>..159       (16#80 bor (I bsr 49) band 16#ff), (16#80 bor (I bsr 42) band 16#ff),
+</span><span class="inferred0"><a name="line160"></a>..160       (16#80 bor (I bsr 35) band 16#ff), (16#80 bor (I bsr 28) band 16#ff),
+</span><span class="inferred0"><a name="line161"></a>..161       (16#80 bor (I bsr 21) band 16#ff), (16#80 bor (I bsr 14) band 16#ff),
+</span><span class="inferred0"><a name="line162"></a>..162       (16#80 bor (I bsr 7) band 16#ff), (I band 16#7f)>>;
+</span><span class="inferred0"><a name="line163"></a>..163 encode_varint(I) when I band 16#ffffffffffffffff =:= I ->
+</span><span class="uncovered0"><a name="line164"></a>..164     <<(16#80 bor (I bsr 63) band 16#81), (16#80 bor (I bsr 56) band 16#ff),
+</span><span class="inferred0"><a name="line165"></a>..165       (16#80 bor (I bsr 49) band 16#ff), (16#80 bor (I bsr 42) band 16#ff),
+</span><span class="inferred0"><a name="line166"></a>..166       (16#80 bor (I bsr 35) band 16#ff), (16#80 bor (I bsr 28) band 16#ff),
+</span><span class="inferred0"><a name="line167"></a>..167       (16#80 bor (I bsr 21) band 16#ff), (16#80 bor (I bsr 14) band 16#ff),
+</span><span class="inferred0"><a name="line168"></a>..168       (16#80 bor (I bsr 7) band 16#ff), (I band 16#7f)>>.
+</span><span class="inferred0"><a name="line169"></a>..169 
+</span><span class="inferred0"><a name="line170"></a>..170 %% @hidden
+</span><span class="inferred0"><a name="line171"></a>..171 decode_varint(Bytes) ->
+</span><span class="marked0"><a name="line172"></a>..172     decode_varint(Bytes, 0).
+</span><span class="inferred0"><a name="line173"></a>..173 
+</span><span class="inferred0"><a name="line174"></a>..174 %% @hidden
+</span><span class="inferred0"><a name="line175"></a>..175 decode_varint(<<0:1, I:7, Rest/binary>>, Accum) when Accum =< 16#3ffffffffffffff ->
+</span><span class="marked0"><a name="line176"></a>..176     {Accum bsl 7 bor I, Rest};
+</span><span class="inferred0"><a name="line177"></a>..177 decode_varint(<<1:1, I:7, Rest/binary>>, Accum) ->
+</span><span class="marked0"><a name="line178"></a>..178     decode_varint(Rest, Accum bsl 7 bor I).
+</span><span class="inferred0"><a name="line179"></a>..179 
+</span><span class="inferred0"><a name="line180"></a>..180 %% @hidden
+</span><span class="marked0"><a name="line181"></a>..181 decode_many(<<>>, Acc) -> lists:keysort(1, Acc);
+</span><span class="inferred0"><a name="line182"></a>..182 decode_many(Bytes, Acc) ->
+</span><span class="marked0"><a name="line183"></a>..183     {A, B} = decode(Bytes, bytes),
+</span><span class="marked0"><a name="line184"></a>..184     decode_many(B, [A | Acc]).
+</span></pre><hr /><p>Generated using <a href='http://github.com/ngerakines/etap'>etap 0.3.3</a>.</p>
+          </body>
+        </html>
+    
